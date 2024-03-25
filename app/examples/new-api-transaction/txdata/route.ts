@@ -8,6 +8,7 @@ import {
   encodeFunctionData,
   getContract,
   http,
+  parseEther
 } from "viem";
 import { optimism } from "viem/chains";
 import { storageRegistryABI } from "./contracts/storage-registry";
@@ -46,13 +47,13 @@ export async function POST(
   const unitPrice = await storageRegistry.read.price([units]);
 
   return NextResponse.json({
-    chainId: "eip155:10", // OP Mainnet 10
+    chainId: "eip155:8453", // OP Mainnet 10
     method: "eth_sendTransaction",
     params: {
       abi: storageRegistryABI as Abi,
-      to: STORAGE_REGISTRY_ADDRESS,
-      data: calldata,
-      value: unitPrice.toString(),
+      to: "0xeac856237a85b70338a32b55bf44b13ef1a7811d",
+      data: "",
+      value: parseEther("0.001").toString(),
     },
   });
 }

@@ -6,7 +6,7 @@ import { checkQuery } from "../../utils";
 
 export async function POST(
     req: NextRequest
-): Promise<NextResponse<any>> {
+): Promise<NextResponse<TransactionTargetResponse>> {
 
     const json = await req.json();
 
