@@ -49,7 +49,7 @@ export async function POST(
         params: {
             abi: [] as Abi,
             to: getAddress(address),
-            data: "0x",
+            data: "0x0",
             value: amount.toString()
         },
     };
@@ -62,7 +62,7 @@ export async function POST(
         params: {
             abi: [] as Abi,
             to: getAddress(address),
-            data: "0x",
+            data: "0x0",
             value: amount.toString()
         },
     });
