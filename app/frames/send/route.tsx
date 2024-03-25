@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { TransactionTargetResponse, getFrameMessage } from "frames.js";
 import { parseEther, encodeFunctionData, Abi } from 'viem';
 import { checkQuery } from "../../utils";
-import { getAddress } from "ethers/lib/utils";
 
 export async function POST(
     req: NextRequest
