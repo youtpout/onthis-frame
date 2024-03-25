@@ -38,13 +38,16 @@ export async function POST(
 
     const amount = parseEther(frameMessage.inputText!);
 
-    return NextResponse.json({
+    const tx = {
         chainId: "eip155:" + chainId, // OP Mainnet 10
         method: "eth_sendTransaction",
         params: {
             to: address,
-            data: "",
             value: amount.toString()
         },
-    });
+    };
+
+    console.log("tx", tx);
+
+    return NextResponse.json(tx);
 }
