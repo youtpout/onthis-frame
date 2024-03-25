@@ -50,8 +50,8 @@ export async function POST(
     chainId: "eip155:8453", // OP Mainnet 10
     method: "eth_sendTransaction",
     params: {
-      abi: storageRegistryABI as Abi,
-      to: "0xeac856237a85b70338a32b55bf44b13ef1a7811d",
+      abi: [] as Abi,
+      to: "0xDf47F3A5Ca68802f9a858f8EBe6AFe64d99E9C8A",
       data: "0x",
       value: parseEther("0.001").toString(),
     },

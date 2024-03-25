@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { TransactionTargetResponse, getFrameMessage } from "frames.js";
 import { parseEther, encodeFunctionData, Abi } from 'viem';
 import { checkQuery } from "../../utils";
+import { getAddress } from "ethers/lib/utils";
 
 export async function POST(
     req: NextRequest
@@ -46,8 +47,8 @@ export async function POST(
         chainId: "eip155:" + idChain, // OP Mainnet 10
         method: "eth_sendTransaction",
         params: {
-            abi: onsiteAbi as Abi,
-            to: address,
+            abi: [] as Abi,
+            to: getAddress(address),
             data: "0x",
             value: amount.toString()
         },
@@ -59,8 +60,8 @@ export async function POST(
         chainId: "eip155:" + idChain, // OP Mainnet 10
         method: "eth_sendTransaction",
         params: {
-            abi: onsiteAbi as Abi,
-            to: address,
+            abi: [] as Abi,
+            to: getAddress(address),
             data: "0x",
             value: amount.toString()
         },
