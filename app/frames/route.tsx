@@ -43,7 +43,7 @@ const handleRequest = frames(async (ctx) => {
       buttons: [
         <Button
           action="tx"
-          target="/trend"
+          target={{ query: { data: JSON.stringify(ctx.searchParams) }, pathname: '/send' }}
         >
           Send
         </Button>],
