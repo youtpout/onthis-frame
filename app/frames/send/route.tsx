@@ -48,7 +48,7 @@ export async function POST(
         method: "eth_sendTransaction",
         params: {
             abi: [] as Abi,
-            to: getAddress(address),
+            to: address,
             data: "0x0",
             value: amount.toString()
         },
@@ -61,7 +61,7 @@ export async function POST(
         method: "eth_sendTransaction",
         params: {
             abi: [] as Abi,
-            to: getAddress(address),
+            to: address,
             data: "0x0",
             value: amount.toString()
         },
