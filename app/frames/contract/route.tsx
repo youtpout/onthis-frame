@@ -15,7 +15,7 @@ const handleRequest = frames(async (ctx) => {
     return {
       image: (
         <div tw="flex flex-col">
-          <span tw="text-blue-500 mb-5">Set shortcut smartcontract address</span>          
+          <span tw="mb-5">📜 Set shortcut smartcontract address</span>
         </div>
       ),
       buttons: [
@@ -27,21 +27,24 @@ const handleRequest = frames(async (ctx) => {
         </Button>,
         <Button
           action="post"
-          target={{ query: { d: "description" }, pathname: '/contract/from' }}
+          target={{ query: { description }, pathname: '/contract/chain' }}
         >
-          Buy
+          Next step
         </Button >
       ],
       textInput: "Address",
       accepts: acceptedProtocols
     };
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
 
     return {
       image: (
         <div tw="flex flex-col">
-          Incorrect description
+          <div tw="flex"> Error </div>
+          <div tw="flex">
+            {error.toString()}
+          </div>
         </div>
       ),
       buttons: [

@@ -14,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div> Welcome to onthis-frame, integrate this url in compatible protocol to show the frame</div>
+        <div>{children}</div></body>
     </html>
   );
 }

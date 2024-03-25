@@ -1,40 +1,42 @@
 /* eslint-disable react/jsx-key */
 import { NextRequest, NextResponse } from "next/server";
 import { TransactionTargetResponse, getFrameMessage } from "frames.js";
-import { ethers } from "ethers";
+import { parseEther } from 'viem';
+import { checkQuery } from "../../utils";
 
 export async function POST(
     req: NextRequest
 ): Promise<NextResponse<any>> {
-    
+
     const json = await req.json();
 
     console.log("searchParams", req.nextUrl.searchParams);
+    const paramData = req.nextUrl.searchParams.get("data");
+    const data = JSON.parse(paramData!);
     const frameMessage = await getFrameMessage(json);
     console.log("frameMessage", frameMessage);
+
+    const res = await checkQuery(data);
 
     if (!frameMessage?.inputText) {
         throw new Error("No amount");
     }
 
-    let address = "0x17b217d4b29063c96d59d5a54211582bee9cfb0d";
+    const address = data.address;
     let chainId = "8453";
-    if (frameMessage.buttonIndex === 2) {
-        address = "0x17b217d4b29063c96d59d5a54211582bee9cfb0d";
+    if (data.chain.toLowerCase() === "base") {
         chainId = "8453";
-    } else if (frameMessage.buttonIndex === 3) {
-        address = "0xe24a513c4489589b6af5fb84154f9ddb17d08d2f";
+    } else if (data.chain.toLowerCase() === "optimism") {
         chainId = "10";
     }
-    else if (frameMessage.buttonIndex === 4) {
-        address = "0xa68ed47bdc0c72b5ddde63fb9295f336ec9541b8";
-        chainId = "42161";
+    else if (data.chain.toLowerCase() === "ethereum") {
+        chainId = "1";
     }
     else {
-        throw new Error("Invalid button");
+        throw new Error("Invalid chain");
     }
 
-    const amount = ethers.parseEther(frameMessage.inputText!);
+    const amount = parseEther(frameMessage.inputText!);
 
     return NextResponse.json({
         chainId: "eip155:" + chainId, // OP Mainnet 10

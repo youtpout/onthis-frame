@@ -1,25 +1,27 @@
 /* eslint-disable react/jsx-key */
 import { createFrames, Button } from "frames.js/next";
-import { frames } from "../../../../frames";
-import { acceptedProtocols } from "../../../../../utils";
+import { frames } from "../../../frames";
+import { acceptedProtocols, checkQuery } from "../../../../utils";
 
 const handleRequest = frames(async (ctx) => {
   try {
 
-    const description = ctx.message?.inputText;
+    const address = ctx.searchParams?.address;
+    const description = ctx.searchParams?.description;
+    const chain = ctx.searchParams?.chain;
+
     console.log("searchParams", ctx.searchParams);
+    console.log("ctx", ctx);
 
 
-
+    const verify = await checkQuery(ctx.searchParams);
 
     return {
       image: (
         <div tw="flex flex-col">
-          <span tw="text-blue-500 mb-5">Result</span>
-          <span>Description : </span>
-          <span>Shortcut address : </span>
-          <span>From chain : </span>
-          <span>To chain : </span>
+          <span>Description : {description}</span>
+          <span>Shortcut address : {address?.slice(0, 10)}...</span>
+          <span>From chain : {chain}</span>
           <span>Copy the frame link in Warpcast</span>
         </div>
       ),
@@ -31,27 +33,24 @@ const handleRequest = frames(async (ctx) => {
           🏠 Home
         </Button>,
         <Button
-          action="post"
-          target="/contract/from/to"
-        >
-          ← back
-        </Button>,
-        <Button
           action="link"
-          target={{ query: { d: "swap contract", s: "0x11", f: "base", t: "optimism" }, pathname: '/' }}
+          target={{ query: { description, address, chain, }, pathname: '/' }}
         >
           Frame Link
         </Button >
       ],
       accepts: acceptedProtocols
     };
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
 
     return {
       image: (
         <div tw="flex flex-col">
-          Incorrect description
+          <div tw="flex"> Error </div>
+          <div tw="flex">
+            {error.toString()}
+          </div>
         </div>
       ),
       buttons: [
@@ -59,11 +58,9 @@ const handleRequest = frames(async (ctx) => {
           action="post"
           target="/"
         >
-          ← back
+          🏠 Home
         </Button>
-
       ],
-      textInput: "Action",
       accepts: acceptedProtocols
     };
   }
