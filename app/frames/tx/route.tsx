@@ -3,8 +3,6 @@ import { createFrames, Button } from "frames.js/next";
 import { frames } from "../frames";
 import { acceptedProtocols } from "../../utils";
 
-const totalPages = 5;
-
 const handleRequest = frames(async (ctx) => {
 
   console.log("message degen", ctx.message);
@@ -56,6 +54,22 @@ const handleRequest = frames(async (ctx) => {
         </Button>
       ]
     }
+  }
+
+  return {
+    image: (
+      <div tw="flex flex-col">
+        <div tw="flex"> Error </div>
+      </div>
+    ),
+    buttons: [
+      <Button
+        action="post"
+        target="/"
+      >
+        ← back
+      </Button>
+    ]
   }
 
 

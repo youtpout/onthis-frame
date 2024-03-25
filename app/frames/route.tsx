@@ -2,6 +2,7 @@
 import { createFrames, Button } from "frames.js/next";
 import { frames } from "./frames";
 import { acceptedProtocols, checkQuery } from "../utils";
+import { NextResponse } from "next/server";
 
 const handleRequest = frames(async (ctx) => {
   try {
