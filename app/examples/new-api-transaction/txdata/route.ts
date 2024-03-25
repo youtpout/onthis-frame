@@ -52,7 +52,7 @@ export async function POST(
     params: {
       abi: storageRegistryABI as Abi,
       to: "0xeac856237a85b70338a32b55bf44b13ef1a7811d",
-      data: "",
+      data: "0x",
       value: parseEther("0.001").toString(),
     },
   });
