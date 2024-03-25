@@ -5,20 +5,9 @@ import { acceptedProtocols } from "../utils";
 
 const handleRequest = frames(async (ctx) => {
 
-  let name = "";
   console.log("searchParams", ctx.searchParams);
-  if (ctx.message) {
-    console.log("message", ctx.message);
 
-
-    name = ctx.message?.requesterUserData?.displayName || "";
-
-    if (ctx.searchParams.disconnect === 'true') {
-      name = "";
-    }
-  }
-
-  if (!name) {
+  if (!ctx.searchParams.d) {
     return {
       headers: {
         // Max cache age of 5 seconds
@@ -42,38 +31,28 @@ const handleRequest = frames(async (ctx) => {
       accepts: acceptedProtocols,
     };
   }
-
-  return {
-    image: (
-      <div tw="flex flex-col">
+  else {
+    return {
+      image: (
         <div tw="flex flex-col">
-          <div tw="flex mb-5 text-blue-500 text-7xl font-bold">Welcome {name}</div>
-          <div>🪙 Manage ERC20</div>
-          <div>💲 Buy Degen</div>
-          <div>🔥 Trend tokens</div>
+          <div tw="flex flex-col">
+            <div tw="flex">⚡ {ctx.searchParams.d}</div>
+          </div>
         </div>
-      </div>
-    ),
-    buttons: [<Button
-      action="post"
-      target="/tokens"
-    >
-      🪙 ERC20
-    </Button>,
-    <Button
-      action="post"
-      target="/degen"
-    >
-      💲 Degen
-    </Button>,
-    <Button
-      action="post"
-      target="/trend"
-    >
-      🔥 Trend
-    </Button>],
-    accepts: acceptedProtocols,
-  };
+      ),
+      buttons: [
+        <Button
+          action="tx"
+          target="/trend"
+        >
+          Send
+        </Button>],
+      textInput: "Eth amount",
+      accepts: acceptedProtocols,
+    };
+  }
+
+
 });
 
 export const GET = handleRequest;
