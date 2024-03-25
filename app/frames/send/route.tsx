@@ -48,7 +48,6 @@ export async function POST(
         params: {
             abi: [] as Abi,
             to: address,
-            data: "0x0",
             value: amount.toString()
         },
     };
@@ -61,7 +60,6 @@ export async function POST(
         params: {
             abi: [] as Abi,
             to: address,
-            data: "0x0",
             value: amount.toString()
         },
     });

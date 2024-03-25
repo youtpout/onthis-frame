@@ -24,27 +24,6 @@ export async function POST(
     throw new Error("No frame message");
   }
 
-  // Get current storage price
-  const units = 1n;
-
-  const calldata = encodeFunctionData({
-    abi: storageRegistryABI,
-    functionName: "rent",
-    args: [BigInt(frameMessage.requesterFid), units],
-  });
-
-  const publicClient = createPublicClient({
-    chain: optimism,
-    transport: http(),
-  });
-
-  const storageRegistry = getContract({
-    address: STORAGE_REGISTRY_ADDRESS,
-    abi: storageRegistryABI,
-    client: publicClient,
-  });
-
-  const unitPrice = await storageRegistry.read.price([units]);
 
   return NextResponse.json({
     chainId: "eip155:8453", // OP Mainnet 10
@@ -52,7 +31,6 @@ export async function POST(
     params: {
       abi: [] as Abi,
       to: "0xDf47F3A5Ca68802f9a858f8EBe6AFe64d99E9C8A",
-      data: "0x0",
       value: parseEther("0.001").toString(),
     },
   });
