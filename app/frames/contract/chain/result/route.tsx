@@ -15,6 +15,7 @@ const handleRequest = frames(async (ctx) => {
 
 
     const verify = await checkQuery(ctx.searchParams);
+    const target = process.env.NEXT_PUBLIC_HOST + `?description=${description}&address=${address}&chain=${chain}`;
 
     return {
       image: (
@@ -34,7 +35,7 @@ const handleRequest = frames(async (ctx) => {
         </Button>,
         <Button
           action="link"
-          target={{ query: { description, address, chain, }, pathname: '/' }}
+          target={target}
         >
           Frame Link
         </Button >
