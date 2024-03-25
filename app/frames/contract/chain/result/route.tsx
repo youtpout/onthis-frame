@@ -15,7 +15,7 @@ const handleRequest = frames(async (ctx) => {
 
 
     const verify = await checkQuery(ctx.searchParams);
-    const target = process.env.NEXT_PUBLIC_HOST + `?description=${description}&address=${address}&chain=${chain}`;
+    const target = `https://onthis-psi.vercel.app?description=${description}&address=${address}&chain=${chain}`;
 
     return {
       image: (
