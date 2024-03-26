@@ -15,8 +15,11 @@ const handleRequest = frames(async (ctx) => {
 
 
     const verify = await checkQuery(ctx.searchParams);
-    const target = `${process.env.EXPORT_URL}?description=${description}&address=${address}&chain=${chain}`;
-
+    const exportUrl = process.env.EXPORT_URL;
+    console.log("exporturl", exportUrl);
+    const target = `${exportUrl}?description=${description}&address=${address}&chain=${chain}`;
+    console.log("target", target);
+    
     return {
       image: (
         <div tw="flex flex-col">
