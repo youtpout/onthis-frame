@@ -45,6 +45,7 @@ export async function POST(
     const tx = {
         chainId: "eip155:" + idChain, // OP Mainnet 10
         method: "eth_sendTransaction",
+        attribution: false,
         params: {
             abi: [] as Abi,
             to: address,
@@ -57,6 +58,7 @@ export async function POST(
     return NextResponse.json({
         chainId: "eip155:" + idChain, // OP Mainnet 10
         method: "eth_sendTransaction",
+        attribution: false,
         params: {
             abi: [] as Abi,
             to: address,
