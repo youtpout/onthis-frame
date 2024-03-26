@@ -16,6 +16,9 @@ export function currentURL(pathname: string): URL {
 }
 
 export function vercelURL() {
+  if (process.env.AZURE) {
+    return "http://localhost:8080"
+  }
   // override vercelurl
   return process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
